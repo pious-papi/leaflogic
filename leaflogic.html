@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>LeafLogic · Islamic guidance, intelligently designed</title>
+  <!-- Font Awesome 6 for clean icons (lightweight, no external font dependency) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --leaf-green: #2e5e3b;
+      --leaf-light: #e9f3e9;
+      --gold: #c49a2b;
+      --bg-cream: #fefcf7;
+      --text-dark: #1e2d1e;
+      --text-soft: #4a5b4a;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.04);
+      --border-radius: 28px;
+      --transition: all 0.25s ease;
+    }
+
+    body {
+      background: var(--bg-cream);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-dark);
+      line-height: 1.5;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    /* main card-like container for startup feel */
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: #ffffff;
+      border-radius: 3.5rem;
+      box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.08);
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+    }
+
+    /* navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      color: var(--leaf-green);
+    }
+
+    .logo i {
+      font-size: 2.2rem;
+      color: var(--leaf-green);
+      background: var(--leaf-light);
+      padding: 0.5rem;
+      border-radius: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--leaf-green);
+    }
+
+    .nav-links a.active-link {
+      color: var(--leaf-green);
+      font-weight: 600;
+    }
+
+    .nav-links a.active-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 60%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--leaf-green);
+      background: transparent;
+      padding: 0.5rem 1.4rem;
+      border-radius: 2rem;
+      color: var(--leaf-green);
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      background: var(--leaf-green);
+      color: white;
+    }
+
+    /* Hero with interactive tilt */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .hero-text {
+      flex: 1 1 300px;
+    }
+
+    .hero-badge {
+      background: var(--leaf-light);
+      color: var(--leaf-green);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 3.6rem);
+      font-weight: 750;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+      color: #1a2e1a;
+    }
+
+    .highlight {
+      color: var(--leaf-green);
+      background: linear-gradient(120deg, #faf7e6 0%, #faf7e6 40%);
+      padding: 0 0.2rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-soft);
+      margin-bottom: 2.2rem;
+      max-width: 450px;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--leaf-green);
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 2.2rem;
+      border: none;
+      border-radius: 3rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 18px -8px rgba(46, 94, 59, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #1f4529;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 25px -10px rgba(46, 94, 59, 0.4);
+    }
+
+    .btn-soft {
+      background: white;
+      border: 1px solid #e0e6da;
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 0.9rem 1.8rem;
+      border-radius: 3rem;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-soft:hover {
+      background: #f5f7f2;
+      border-color: #bcc9b0;
+    }
+
+    .hero-visual {
+      flex: 1 1 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .app-mockup {
+      background: #f3f7f0;
+      border-radius: 3rem;
+      padding: 1.8rem 1.4rem 1.4rem;
+      box-shadow: var(--shadow-sm), 0 20px 30px -12px rgba(0,0,0,0.15);
+      transform: perspective(800px) rotateY(-2deg) rotateX(3deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #ffffff;
+      border: 1px solid #eef3ea;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      max-width: 280px;
+    }
+
+    .app-mockup:hover {
+      transform: perspective(800px) rotateY(0deg) rotateX(0deg) scale(1.02);
+      box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.18);
+    }
+
+    .mockup-screen {
+      background: #f9fbf8;
+      border-radius: 2rem;
+      padding: 1.2rem;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #dce4d4;
+    }
+
+    .mockup-screen i {
+      font-size: 2.8rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .mockup-screen .quran-icon {
+      color: #2e5e3b;
+    }
+
+    .mockup-text {
+      font-weight: 600;
+      color: #1e3b1e;
+    }
+
+    .app-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--leaf-green);
+      background: #eef6ea;
+      padding: 0.4rem 1.4rem;
+      border-radius: 2rem;
+    }
+
+    /* product feature section */
+    .product-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      background: #f9fcf7;
+      border-radius: 2.5rem;
+      padding: 2rem 2rem;
+      margin: 0.6rem 0;
+    }
+
+    .product-details {
+      flex: 2 1 300px;
+    }
+
+    .product-details h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .product-details p {
+      color: var(--text-soft);
+      margin-bottom: 1.8rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1.6rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      transition: var(--transition);
+    }
+
+    .feature-item:hover {
+      background: #ffffff;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+      transform: translateX(4px);
+    }
+
+    .feature-item i {
+      color: var(--gold);
+      font-size: 1.3rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    .app-link-card {
+      flex: 1 1 220px;
+      background: white;
+      border-radius: 2rem;
+      padding: 1.8rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      border: 1px solid #ecf0e8;
+    }
+
+    .app-link-card i {
+      font-size: 2.8rem;
+      color: var(--leaf-green);
+    }
+
+    .app-link-card span {
+      font-weight: 650;
+      color: #1e3a1e;
+    }
+
+    .store-badge {
+      background: #1e2d1e;
+      color: white;
+      border-radius: 2.5rem;
+      padding: 0.7rem 1.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .store-badge:hover {
+      background: #0f1f0f;
+      transform: scale(1.03);
+    }
+
+    footer {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      border-top: 1px solid #e3eadb;
+      padding-top: 1.8rem;
+    }
+
+    .social i {
+      margin-left: 0.8rem;
+      font-size: 1.2rem;
+      color: var(--text-soft);
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .social i:hover {
+      color: var(--leaf-green);
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        padding: 1.8rem 1.5rem;
+      }
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header / Nav -->
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i> LeafLogic
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active-link">Home</a>
+        <a href="#">Product</a>
+        <a href="#">About</a>
+        <a href="#" class="btn-outline">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero interactive area -->
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i class="fas fa-seedling" style="margin-right: 0.3rem;"></i> thoughtful tech
+        </div>
+        <h1>
+          Clarity <span class="highlight">grows</span> here.<br> Islamic guidance, <span style="color: #2e5e3b;">intelligently</span>.
+        </h1>
+        <p>
+          LeafLogic builds tools that nourish the soul. Our first product brings daily wisdom, prayer tools, and mindful direction — right in your pocket.
+        </p>
+        <div class="cta-group">
+          <a href="#" class="btn-primary" id="exploreBtn">
+            <i class="fas fa-compass"></i> Explore the App
+          </a>
+          <a href="#" class="btn-soft">
+            <i class="fas fa-play-circle"></i> Watch demo
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="app-mockup" id="mockupCard">
+          <div class="mockup-screen">
+            <i class="fas fa-mosque quran-icon"></i>
+            <div style="font-weight: 700; margin-top: 0.3rem;">Fajr · 4:32 AM</div>
+            <div style="font-size: 0.8rem; color: #5b6e5b;">Next: Dhuhr 12:15 PM</div>
+            <div style="margin-top: 0.8rem; background: #f4f7ed; border-radius: 1rem; padding: 0.4rem;">
+              <i class="fas fa-book-open" style="color: #c49a2b;"></i> Surah Al-Kahf
+            </div>
+          </div>
+          <div class="app-label">
+            <i class="fas fa-moon"></i> Guidance App · Live
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product focus: Islamic guidance app -->
+    <section class="product-section">
+      <div class="product-details">
+        <h2>
+          <i class="fas fa-star-and-crescent" style="color: var(--gold);"></i> Nur · Islamic Guidance
+        </h2>
+        <p>
+          A mindful companion for everyday spirituality. Prayer times, Qibla, Quranic reflections, and adhkar — crafted with simplicity and beauty.
+        </p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <i class="fas fa-clock"></i> Accurate prayer times & notifications
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-compass"></i> Qibla compass & nearby mosques
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-book"></i> Daily verse & Hadith reflections
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-hand-holding-heart"></i> Private & lightweight design
+          </div>
+        </div>
+        <a href="#" class="store-badge" id="appLinkBtn">
+          <i class="fas fa-external-link-alt"></i> Open Web App
+        </a>
+      </div>
+      <div class="app-link-card">
+        <i class="fas fa-mobile-alt"></i>
+        <span>LeafLogic · Nur</span>
+        <p style="font-size: 0.9rem; color: #4a5b4a;">Available as a progressive web app. Tap to experience.</p>
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.3rem;">
+          <span style="background:#eef3ea; padding:0.3rem 1rem; border-radius:1rem; font-size:0.8rem;">iOS</span>
+          <span style="background:#eef3ea; padding:0.3rem 1rem; border-radius:1rem; font-size:0.8rem;">Android</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <span>© 2025 LeafLogic — Rooted in clarity.</span>
+      <div class="social">
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Lightweight interactivity -->
+  <script>
+    (function() {
+      // Interactive elements: startup feel with micro-interactions
+      const exploreBtn = document.getElementById('exploreBtn');
+      const appLinkBtn = document.getElementById('appLinkBtn');
+      const mockupCard = document.getElementById('mockupCard');
+
+      // This link can be customized to actual Islamic guidance app URL
+      const APP_LINK = 'https://example.com/leaflogic-nur'; // Replace with real link when ready
+
+      // Function to navigate / show link (simulate opening)
+      function openAppLink() {
+        // In a real startup site, this would lead to the product.
+        // We use a prompt to keep it interactive and lightweight.
+        window.open(APP_LINK, '_blank');
+      }
+
+      // attach to buttons
+      if (exploreBtn) {
+        exploreBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          openAppLink();
+        });
+      }
+
+      if (appLinkBtn) {
+        appLinkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          openAppLink();
+        });
+      }
+
+      // Extra interactive: click on mockup also triggers link
+      if (mockupCard) {
+        mockupCard.addEventListener('click', function() {
+          openAppLink();
+        });
+        // Cursor pointer for better UX
+        mockupCard.style.cursor = 'pointer';
+      }
+
+      // subtle active link animation (just for feel)
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Prevent actual navigation for demo (except contact maybe)
+          if (!this.classList.contains('btn-outline')) {
+            e.preventDefault();
+            // remove active class from all and add to clicked
+            navLinks.forEach(l => l.classList.remove('active-link'));
+            this.classList.add('active-link');
+          }
+        });
+      });
+
+      console.log('🍃 LeafLogic — Islamic guidance startup ready.');
+    })();
+  </script>
+</body>
+</html>
